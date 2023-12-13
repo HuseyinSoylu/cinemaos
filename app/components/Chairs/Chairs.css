@@ -1,0 +1,46 @@
+.col-1-10 {
+  width: 9%;
+}
+.perde {
+  position: relative;
+  text-align: center;
+}
+.perde::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: -8px;
+  width: 95%;
+  height: 4px;
+  background: #000000;
+  border-radius: 2px;
+}
+.row {
+  --bs-gutter-x: 0;
+}
+.chairs-box {
+  row-gap: 15px;
+}
+.chairs-box .form-check-input[type="checkbox"] {
+  background-color: #d78098;
+  position: relative;
+  border: none;
+}
+.chairs-box .form-check-input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0px;
+  height: 8px;
+  width: 4px;
+  background: #d78098;
+}
+.chairs-box .form-check-input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  right: 0px;
+  height: 8px;
+  width: 4px;
+  background: #d78098;
+}
