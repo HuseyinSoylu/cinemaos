@@ -2,8 +2,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import "./BuyTicket.css";
-// import { useLocation, useParams } from "react-router-dom";
-// import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,13 +12,21 @@ import {
 import axios from "axios";
 import Chairs from "@/app/components/Chairs/Chairs";
 import ChooseTicket from "@/app/components/Ticket/ChooseTicket";
-import TicketProvider, { TicketContext } from "@/app/Contexts/TicketContext";
+import { TicketContext } from "@/app/Contexts/TicketContext";
 import Payment from "@/app/components/Payment/Payment";
 import { ChairContext } from "@/app/Contexts/ChairContext";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Page({ params }) {
+interface Props {
+  params: {
+    filmId: string;
+    cinemaId: string;
+    hour: string;
+  };
+}
+
+export default function Page({ params }: Props) {
   const userInfo =
     typeof window !== "undefined" ? localStorage.getItem("user") : null;
   const user = userInfo ? JSON.parse(userInfo) : null;
@@ -30,7 +36,7 @@ export default function Page({ params }) {
   const month = searchParams.get("month");
   const [movie, setMovie] = useState([]);
   const [cinema, setCinema] = useState([]);
-  const { selectedChair, setSelectedChair } = useContext(ChairContext);
+  const { selectedChair, setSelectedChair } = useContext<any>(ChairContext);
   const {
     price,
     count,
@@ -39,7 +45,7 @@ export default function Page({ params }) {
     studentCount,
     setAdultCount,
     setStudentCount,
-  } = useContext(TicketContext);
+  } = useContext<any>(TicketContext);
   const [step, setStep] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState("");
 
@@ -108,7 +114,6 @@ export default function Page({ params }) {
       case "February":
         setSelectedMonth("02");
         break;
-      // Add other cases for different months
       case "March":
         setSelectedMonth("03");
         break;
