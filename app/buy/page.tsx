@@ -19,6 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import crypto from "crypto-js";
 import classes from "./page.module.css";
+import classNames from "classnames";
 interface Props {
   params: {
     filmId: string;
@@ -26,7 +27,6 @@ interface Props {
     hour: string;
   };
 }
-
 export default function Page() {
   const [decryptedData, setDecryptedData] = useState(null);
   const userInfo =
@@ -166,8 +166,17 @@ export default function Page() {
   }, [selectedMonth]);
 
   return (
-    <div className={classes.csBuyticketContainer}>
-      <div className="d-flex">
+    <div
+      className={classNames(
+        classes.csBuyticketContainer,
+        "background: linear-gradient(13deg, #ec2938 0%, #e6017c 99%)"
+      )}
+      style={{
+        background: "linear-gradient(13deg, #ec2938 0%, #e6017c 99%)",
+        color: "#ffffff",
+      }}
+    >
+      <div className="d-flex" style={{ color: "#000" }}>
         <div
           style={{ width: "35%" }}
           className="d-flex justify-content-end pe-4"
@@ -179,17 +188,17 @@ export default function Page() {
             <h2>{movie.Title}</h2>
             <img src={movie.Poster} alt="poster" width={200} height={350} />
             <div className="text-start">
-              <div className="box">
+              <div className={classes.box}>
                 <FontAwesomeIcon icon={faLocationDot} />
                 <span className="ms-2">{cinemaSalon.location}</span>
               </div>
-              <div className="box mt-3">
+              <div className={classNames("mt-3", classes.box)}>
                 <FontAwesomeIcon icon={faCalendarDays} />
                 <span className="ms-2">
                   {decryptedData?.date} {decryptedData?.month}
                 </span>
               </div>
-              <div className="box mt-3">
+              <div className={classNames("mt-3", classes.box)}>
                 <FontAwesomeIcon icon={faClockFour} />
                 <span className="ms-2">{decryptedData?.time}</span>
                 {/* <span className="ms-2">{params.hour time}</span> */}
@@ -198,16 +207,18 @@ export default function Page() {
           </div>
         </div>
         <div style={{ width: "65%", backgroundColor: "#ececec" }}>
-          <div className="mainbox text-end goHome">
+          <div
+            className={classNames("text-end", classes.mainbox, classes.goHome)}
+          >
             <Link href="/">Return Homepage</Link>
           </div>
           {step === 0 ? (
             <>
-              <div className="mainbox">
+              <div className={classes.mainbox}>
                 <div className="d-flex justify-content-between">
                   <h2>Select Ticket</h2>
                   <button
-                    className="btn btn-dark nextbtn"
+                    className={classNames("btn", "btn-dark", classes.nextbtn)}
                     onClick={goToNextStep}
                   >
                     Continue
@@ -216,31 +227,34 @@ export default function Page() {
 
                 <ChooseTicket />
               </div>
-              <div className="mt-3 mainbox">
-                <h2 className="disable-title">Seat</h2>
+              <div className={classNames("mt-3", classes.mainbox)}>
+                <h2 className={classes.disableTitle}>Seat</h2>
               </div>
-              <div className="mt-3 mainbox">
-                <h2 className="disable-title">Payment</h2>
+              <div className={classNames("mt-3", classes.mainbox)}>
+                <h2 className={classes.disableTitle}>Payment</h2>
               </div>
             </>
           ) : step === 1 ? (
             <>
-              <div className="next-box mb-2">
+              <div className={classNames("mb-2", classes.nextBox)}>
                 <h2>Tickets</h2>
                 <div>
                   {adultCount > 0 && (
                     <>
-                      <span className="count">{adultCount}</span> Adult
+                      <span className={classes.count}>{adultCount}</span> Adult
                     </>
                   )}
                   {studentCount > 0 && (
                     <>
-                      <span className="count ms-3">{studentCount}</span> Student
+                      <span className={classNames("ms-3", classes.count)}>
+                        {studentCount}
+                      </span>{" "}
+                      Student
                     </>
                   )}
                 </div>
               </div>
-              <div className="mainbox">
+              <div className={classes.mainbox}>
                 <div className="d-flex justify-content-between mb-2">
                   <h2>Select Seat</h2>
                   <button
@@ -253,39 +267,50 @@ export default function Page() {
                 <Chairs />
               </div>
 
-              <div className="mt-3 mainbox">
-                <h2 className="disable-title">Payment</h2>
+              <div className={classNames("ms-3", classes.mainbox)}>
+                <h2 className={classes.disableTitle}>Payment</h2>
               </div>
             </>
           ) : step === 2 ? (
             <>
-              <div className="next-box mb-2 pb-0">
+              <div className={classNames("mb-2", "pb-0", classes.nextBox)}>
                 <h2>Tickets</h2>
                 <div>
                   {adultCount > 0 && (
                     <>
-                      <span className="count">{adultCount}</span> Adult
+                      <span className={classes.count}>{adultCount}</span> Adult
                     </>
                   )}
                   {studentCount > 0 && (
                     <>
-                      <span className="count ms-3">{studentCount}</span> Student
+                      <span className={classNames("ms-3", classes.count)}>
+                        {studentCount}
+                      </span>{" "}
+                      Student
                     </>
                   )}
                 </div>
               </div>
-              <div className="next-box mb-2">
+              <div className={classNames("mb-2", classes.nextBox)}>
                 <h2>Seats</h2>
                 <span>{getSeatDetails()}</span>
               </div>
-              <div className="next-box flex-column align-items-start pb-4">
+              <div
+                className={classNames(
+                  "flex-column",
+                  "align-items-start",
+                  "pb-4",
+                  classes.nextBox
+                )}
+              >
                 <div
                   className="d-flex justify-content-between"
                   style={{ width: "100%" }}
                 >
                   <h2>Payment</h2>
                   <h2>
-                    Total <span className="price">{`${price},00 ₺`}</span>
+                    Total{" "}
+                    <span className={classes.price}>{`${price},00 ₺`}</span>
                   </h2>
                 </div>
                 <Payment
