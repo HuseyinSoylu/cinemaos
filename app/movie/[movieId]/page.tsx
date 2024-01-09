@@ -1,7 +1,5 @@
 "use client";
-import { React, useState, useEffect, useRef } from "react";
-// import { useParams } from "react-router-dom";
-// import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/app/components/Header/Header";
@@ -92,7 +90,7 @@ export default function Page({ params }) {
     <>
       <Header />
       <div className="cs-container">
-        <div className="movie-overlay" style={customStyle}></div>
+        <div className="movie-overlay" style={customStyle} />
         <div
           className="container d-flex justify-content-center align-items-center"
           style={{ height: "100%" }}
@@ -102,7 +100,7 @@ export default function Page({ params }) {
             style={{ width: "100%" }}
           >
             <div className="col-3 max-w-24">
-              <Image
+              <img
                 src={movie.Poster}
                 className="img-sizes"
                 alt="poster"

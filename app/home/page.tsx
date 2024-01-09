@@ -13,7 +13,7 @@ import MainCarousel from "../components/Carousels/MainCarousel.jsx";
 import BottomCarousel from "@/app/components/Carousels/BottomCarousel.jsx";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer.tsx/index.js";
-
+import classes from "Home.module.css";
 const Home = ({ user }) => {
   const userName = user ? user.name : null;
 

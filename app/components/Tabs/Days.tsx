@@ -4,11 +4,14 @@ import { Tab, Tabs } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import "./Days.css";
 import Link from "next/link";
+import Buy from "@/app/buy/page";
+import crypto from "crypto-js";
 
-const Days = ({ selectedCinemas, id, filmName }) => {
+const Days = ({ selectedCinemas, id }) => {
   const router = useRouter();
   const [key, setKey] = useState();
   const [days, setDays] = useState([]);
+  const [selectedDateTime, setSelectedDateTime] = useState(null);
 
   const HandleDate = () => {
     const days = [
@@ -82,37 +85,46 @@ const Days = ({ selectedCinemas, id, filmName }) => {
     setKey(days[0].day);
   }, []);
 
-  // const HandleBuyTicket = (element, e) => {
-  //   const cinemaId = selectedCinemas[0].id;
-  //   const hour = e.target.innerText.replace(".", ":").replace(":", ":");
-
-  //   console.log(id);
-  //   console.log(cinemaId);
-  //   console.log(hour);
-  //   router.push(`/buyticket/film/${id}/cinema/${cinemaId}/time/${hour}`, {
-  //     query: { date: element.date, month: element.month },
-  //   });
-  // };
-
-  const HandleBuyTicket = (element, e) => {
+  const HandleBuyTicket = (element, hour) => {
     const cinemaId = selectedCinemas[0].id;
-    const hour = e.target.innerText.replace(".", ":").replace(":", ":");
+    setSelectedDateTime({
+      filmId: id,
+      cinema: cinemaId,
+      month: element.month,
+      date: element.date,
+      time: hour,
+    });
 
-    console.log(id);
-    console.log(cinemaId);
-    console.log(hour);
+    const selectedData = {
+      filmId: id,
+      cinema: cinemaId,
+      month: element.month,
+      date: element.date,
+      time: hour,
+    };
 
-    const queryParams = new URLSearchParams();
-    queryParams.set("date", element.date);
-    queryParams.set("month", element.month);
+    const encryptedData = crypto.AES.encrypt(
+      JSON.stringify(selectedData),
+      "huseyin1234" // Burada kendi şifreleme anahtarınızı kullanmalısınız
+    ).toString();
 
-    router.push(
-      `/buyticket/film/${id}/cinema/${cinemaId}/time/${hour}?${queryParams.toString()}`
-    );
+    // Local Storage'da saklama
+    localStorage.setItem("selectedDateTime", encryptedData);
+
+    router.push("/buy");
   };
 
   return (
     <div className="container">
+      {selectedDateTime && (
+        <Buy
+          filmId={selectedDateTime.filmId}
+          cinema={selectedDateTime.cinema}
+          month={selectedDateTime.month}
+          date={selectedDateTime.date}
+          time={selectedDateTime.time}
+        />
+      )}
       <Tabs
         id="controlled-tab-example"
         activeKey={key}
@@ -129,21 +141,21 @@ const Days = ({ selectedCinemas, id, filmName }) => {
             <button
               type="button"
               className="btn btn-outline-secondary me-2"
-              onClick={(e) => HandleBuyTicket(element, e)}
+              onClick={() => HandleBuyTicket(element, "13:00")}
             >
               13.00
             </button>
             <button
               type="button"
               className="btn btn-outline-secondary me-2"
-              onClick={(e) => HandleBuyTicket(element, e)}
+              onClick={() => HandleBuyTicket(element, "16:00")}
             >
               16.00
             </button>
             <button
               type="button"
               className="btn btn-outline-secondary me-2"
-              onClick={(e) => HandleBuyTicket(element, e)}
+              onClick={() => HandleBuyTicket(element, "20:00")}
             >
               20.00
             </button>

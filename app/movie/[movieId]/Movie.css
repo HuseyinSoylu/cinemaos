@@ -82,8 +82,9 @@
 }
 .nav-tabs .nav-link.active::before {
   content: "";
-  background: url(../../../public/assets/arrow-down.svg);
+  /* background: url(../../../public/assets/arrow-down.svg); */
   /* background: url(../assets/arrow-down.svg); */
+  background: url("../../../public/assets/arrow-down.svg");
   width: 16px;
   height: 8px;
   position: absolute;

@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import classes from "./BottomCarousel.module.css";
+import Image from "next/image";
 
 interface Movie {
   id: string;
@@ -68,16 +70,16 @@ const BottomCarousel: React.FC = () => {
                 <p>Loading...</p>
               ) : (
                 movies.map((item, index) => (
-                  <div className="card" key={index}>
+                  <div className={classes.card} key={index}>
                     <a href={`/movie/${item.id}`}>
                       <img
-                        src={item.Poster}
+                        src={item?.Poster}
                         alt="Card image cap"
                         width={300}
                         height={400}
                       />
                     </a>
-                    <div className="card-body">
+                    <div className={classes.cardBody}>
                       <a href={`/movie/${item.id}`} className="btn btn-dark">
                         Make Comment
                       </a>

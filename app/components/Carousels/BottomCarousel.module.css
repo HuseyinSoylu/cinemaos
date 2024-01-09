@@ -1,4 +1,4 @@
-.card-body {
+.cardBody {
   position: absolute;
   top: 50%;
   gap: 10px;
@@ -10,7 +10,8 @@
   flex-direction: column;
 }
 .card:hover {
-  background-image: url(../../assets/bg-movie-roll-over.png);
+  /* background-image: url(../../assets/bg-movie-roll-over.png); */
+  background-image: url("../../../public/assets/bg-movie-roll-over.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
